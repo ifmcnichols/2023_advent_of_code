@@ -60,15 +60,30 @@ def get_first_digit_pt2(entry, forward=True):
                     return str(nums_dict[entry[j:i+1]])
 
 
+def fill_w_digits(full_string):
+    full_string = full_string.replace("one", "o1e")
+    full_string = full_string.replace("two", "t2o")
+    full_string = full_string.replace("three", "t3e")
+    full_string = full_string.replace("four", "f4r")
+    full_string = full_string.replace("five", "f5e")
+    full_string = full_string.replace("six", "s6x")
+    full_string = full_string.replace("seven", "s7n")
+    full_string = full_string.replace("eight", "e8t")
+    full_string = full_string.replace("nine", "n9n")
+    return full_string
+
+
 calibration_sum = 0
+inputs = open("day_01_input.txt", "r")
+lines = inputs.readlines()
+inputs.close()
 
 for line in lines:
     line = line.strip()
-    first_digit = get_first_digit_pt2(line)
-    last_digit = get_first_digit_pt2(line[::-1], forward=False)
-    print(line + " " + line[::-1] + f": first: {first_digit}, last: {last_digit}")
+    line = fill_w_digits(line)
+    first_digit = get_first_digit(line)
+    last_digit = get_first_digit(line[::-1])
     total = int(first_digit + last_digit)
-    print("total:", total)
     calibration_sum += total
 
 
