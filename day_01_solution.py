@@ -1,4 +1,4 @@
-nums_dict = {
+nums_dict_forward = {
     "one": 1,
     "two": 2,
     "three": 3,
@@ -8,6 +8,8 @@ nums_dict = {
     "seven": 7,
     "eight": 8,
     "nine": 9,
+}
+nums_dict_backward = {
     "eno": 1,
     "owt": 2,
     "eerht": 3,
@@ -44,7 +46,11 @@ for line in lines:
 print("sum:", calibration_sum)
 
 
-def get_first_digit_pt2(entry):
+def get_first_digit_pt2(entry, forward=True):
+    if forward:
+        nums_dict = nums_dict_forward
+    else:
+        nums_dict = nums_dict_backward
     for i in range(len(entry)):
         if entry[i].isdigit():
             return entry[i]
@@ -59,8 +65,11 @@ calibration_sum = 0
 for line in lines:
     line = line.strip()
     first_digit = get_first_digit_pt2(line)
-    last_digit = get_first_digit_pt2(line[::-1])
+    last_digit = get_first_digit_pt2(line[::-1], forward=False)
+    print(line + " " + line[::-1] + f": first: {first_digit}, last: {last_digit}")
     total = int(first_digit + last_digit)
+    print("total:", total)
     calibration_sum += total
+
 
 print("sum:", calibration_sum)
