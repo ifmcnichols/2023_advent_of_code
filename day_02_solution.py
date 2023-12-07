@@ -47,4 +47,17 @@ for line in lines:
     if possible:
         id_sum += line_data["id"]
 
-print("sum:", id_sum)
+print("sum 1 :", id_sum)
+
+power_sum = 0
+
+inputs_file = open("day_02_input.txt", "r")
+lines = inputs_file.readlines()
+inputs_file.close()
+
+for line in lines:
+    line_data = parse_line(line)
+    power = line_data["reds"] * line_data["greens"] * line_data["blues"]
+    power_sum += power
+
+print("sum 2:", power_sum)
