@@ -21,8 +21,10 @@ def check_number(first_index, last_index, current_line, prev_line, next_line, nu
 
     return False
 
-symbols = ["/", "*", "#", "%", "=", "@", "&"]
 parts_sum = 0
+
+lines = lines[0:5]
+
 
 for itr, line in enumerate(lines):
     if itr == 0:
@@ -51,7 +53,9 @@ for itr, line in enumerate(lines):
             orig_length = len(obj)
             for thing in obj:
                 if not thing.isdigit():
+                    reason = thing
                     obj = obj.replace(thing, "")
+            print("part:", obj, "because:", reason)
             parts_sum += int(obj)
             idx += orig_length + 1
 
