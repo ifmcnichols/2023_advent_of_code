@@ -5,36 +5,36 @@ from termcolor import colored
 
 
 def check_number(first_index, current_line, prev_line, next_line, number):
-    last_index = first_index + len(obj) - 1
+    la_in = first_index + len(obj) - 1
+    fi_in = first_index
     if number[0] != current_line[first_index]:
         breakpoint()
-    if first_index == 0:
+    if fi_in == 0:
         first_index += 1
-    if last_index == len(line):
-        last_index -= 1
     if prev_line is not None:
-        for i in prev_line[first_index-1:last_index+2]:
+        for i in prev_line[fi_in-1:la_in+2]:
             if i != "." and not i.isdigit():
                 return True
     if next_line is not None:
-        for i in next_line[first_index-1:last_index+2]:
+        for i in next_line[fi_in-1:la_in+2]:
             if i != "." and not i.isdigit():
                 return True
-    if current_line[first_index-1] != "." and not current_line[last_index+1].isdigit():
+    if current_line[fi_in-1] != "." and not current_line[la_in+1].isdigit():
         return True
 
     print(colored("skipping number:", 'red'), number)
     if prev_line is not None:
-        print(prev_line[first_index-1:last_index+2])
-    print(current_line[first_index-1:last_index+2])
+        print(prev_line[fi_in-1:la_in+2])
+    print(current_line[fi_in-1:la_in+2])
     if next_line is not None:
-        print(next_line[first_index-1:last_index+2])
+        print(next_line[fi_in-1:la_in+2])
     print("===========\n")
     return False
 
 
 parts_sum = 0
-
+for i in range(len(lines)):
+    lines[i] = lines[i].replace("\n", ".")
 
 for itr, line in enumerate(lines):
     if itr == 0:
@@ -46,6 +46,7 @@ for itr, line in enumerate(lines):
     else:
         next = lines[itr+1].strip()
     line = line.strip()
+
     current = line
     line = line.split(".")
     idx = 0
