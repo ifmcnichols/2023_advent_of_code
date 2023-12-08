@@ -1,12 +1,17 @@
 input_file = open("day_03_input.txt", "r")
 lines = input_file.readlines()
 input_file.close()
+from termcolor import colored
 
 
 def check_number(first_index, current_line, prev_line, next_line, number):
     last_index = first_index + len(obj) - 1
     if number[0] != current_line[first_index]:
         breakpoint()
+    if first_index == 0:
+        first_index += 1
+    if last_index == len(line)-1:
+        last_index -= 1
     if prev_line is not None:
         for i in prev_line[first_index-1:last_index+2]:
             if i != "." and not i.isdigit():
@@ -18,7 +23,7 @@ def check_number(first_index, current_line, prev_line, next_line, number):
     if current_line[first_index-1] != "." and not current_line[last_index+1].isdigit():
         return True
 
-    print("skipping number:", number)
+    print(colored("skipping number:", 'red'), number)
     if prev_line is not None:
         print(prev_line[first_index-1:last_index+2])
     print(current_line[first_index-1:last_index+2])
@@ -50,9 +55,8 @@ for itr, line in enumerate(lines):
             idx += 1
         elif obj.isdigit():
             is_part = check_number(idx, current, previous, next, obj)
-            idx += len(obj) + 1
             if is_part:
-                print("adding number: ", obj)
+                print(colored("adding number: ", 'green'), obj)
                 if previous is not None:
                     print(previous[idx-1:idx+len(obj)+1])
                 print(current[idx-1:idx+len(obj)+1])
@@ -60,6 +64,7 @@ for itr, line in enumerate(lines):
                     print(next[idx-1:idx+len(obj)+1])
                 print("===========\n")
                 parts_sum += int(obj)
+            idx += len(obj) + 1
         elif len(obj) == 1:
             idx += 2
         else:
@@ -70,7 +75,7 @@ for itr, line in enumerate(lines):
                     if not thing.isdigit():
                         reason = thing
                         obj = obj.replace(thing, "")
-                print("adding number: ", obj)
+                print(colored("adding number: ", 'green'), obj)
                 if previous is not None:
                     print(previous[idx-1:idx+len(obj)+1])
                 print(current[idx-1:idx+len(obj)+1])
@@ -82,7 +87,7 @@ for itr, line in enumerate(lines):
                 obj1 = obj[0:middle_thing]
                 obj2 = obj[middle_thing+1:]
                 obj = int(obj1) + int(obj2)
-                print("adding numbers: ", obj1, obj2)
+                print(colored("adding number: ", 'green'), obj1, obj2)
                 if previous is not None:
                     print(previous[idx-1:idx+orig_length+1])
                 print(current[idx-1:idx+orig_length+1])
