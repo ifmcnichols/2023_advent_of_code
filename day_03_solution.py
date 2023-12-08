@@ -18,6 +18,13 @@ def check_number(first_index, current_line, prev_line, next_line, number):
     if current_line[first_index-1] != "." and not current_line[last_index+1].isdigit():
         return True
 
+    print("skipping number:", number)
+    if prev_line is not None:
+        print(prev_line[first_index-1:last_index+2])
+    print(current_line[first_index-1:last_index+2])
+    if next_line is not None:
+        print(next_line[first_index-1:last_index+2])
+    print("===========\n")
     return False
 
 
@@ -45,11 +52,13 @@ for itr, line in enumerate(lines):
             is_part = check_number(idx, current, previous, next, obj)
             idx += len(obj) + 1
             if is_part:
-                #print("adding number: ", obj)
-                #print(previous)
-                #print(current)
-                #print(next)
-                #print("===========\n")
+                print("adding number: ", obj)
+                if previous is not None:
+                    print(previous[idx-1:idx+len(obj)+1])
+                print(current[idx-1:idx+len(obj)+1])
+                if next is not None:
+                    print(next[idx-1:idx+len(obj)+1])
+                print("===========\n")
                 parts_sum += int(obj)
         elif len(obj) == 1:
             idx += 2
@@ -62,9 +71,11 @@ for itr, line in enumerate(lines):
                         reason = thing
                         obj = obj.replace(thing, "")
                 print("adding number: ", obj)
-                print(previous)
-                print(current)
-                print(next)
+                if previous is not None:
+                    print(previous[idx-1:idx+len(obj)+1])
+                print(current[idx-1:idx+len(obj)+1])
+                if next is not None:
+                    print(next[idx-1:idx+len(obj)+1])
                 print("===========\n")
             else:
                 middle_thing = [x.isdigit() for x in obj].index(False)
@@ -72,9 +83,11 @@ for itr, line in enumerate(lines):
                 obj2 = obj[middle_thing+1:]
                 obj = int(obj1) + int(obj2)
                 print("adding numbers: ", obj1, obj2)
-                print(previous)
-                print(current)
-                print(next)
+                if previous is not None:
+                    print(previous[idx-1:idx+orig_length+1])
+                print(current[idx-1:idx+orig_length+1])
+                if next is not None:
+                    print(next[idx-1:idx+orig_length+1])
                 print("===========\n")
 
             parts_sum += int(obj)
