@@ -10,7 +10,7 @@ def check_number(first_index, current_line, prev_line, next_line, number):
         breakpoint()
     if first_index == 0:
         first_index += 1
-    if last_index == len(line)-1:
+    if last_index == len(line):
         last_index -= 1
     if prev_line is not None:
         for i in prev_line[first_index-1:last_index+2]:
