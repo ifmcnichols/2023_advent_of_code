@@ -3,27 +3,25 @@ lines = input_file.readlines()
 input_file.close()
 
 
-def check_number(first_index, last_index, current_line, prev_line, next_line, number):
+def check_number(first_index, current_line, prev_line, next_line, number):
+    last_index = first_index + len(obj) - 1
+    if number[0] != current_line[first_index]:
+        breakpoint()
     if prev_line is not None:
-        for i in range(first_index-1, last_index+1):
-            if prev_line[i] != "." and not prev_line[i].isdigit():
-                print("part:", number, "because:", prev_line[i])
+        for i in prev_line[first_index-1:last_index+2]:
+            if i != "." and not i.isdigit():
                 return True
     if next_line is not None:
-        for i in range(first_index-1, last_index+1):
-            if next_line[i] != "." and not next_line[i].isdigit():
-                print("part:", number, "because:", next_line[i])
+        for i in next_line[first_index-1:last_index+2]:
+            if i != "." and not i.isdigit():
                 return True
-    if current_line[first_index] != "." and not current_line[last_index].isdigit():
-        return True
-    if current_line[first_index] != "." and not current_line[last_index].isdigit():
+    if current_line[first_index-1] != "." and not current_line[last_index+1].isdigit():
         return True
 
     return False
 
-parts_sum = 0
 
-lines = lines[0:5]
+parts_sum = 0
 
 
 for itr, line in enumerate(lines):
@@ -39,23 +37,46 @@ for itr, line in enumerate(lines):
     current = line
     line = line.split(".")
     idx = 0
+    print("=======")
     for obj in line:
         if obj == "":
             idx += 1
         elif obj.isdigit():
-            is_part = check_number(idx, idx+len(obj), current, previous, next, obj)
+            is_part = check_number(idx, current, previous, next, obj)
             idx += len(obj) + 1
             if is_part:
+                #print("adding number: ", obj)
+                #print(previous)
+                #print(current)
+                #print(next)
+                #print("===========\n")
                 parts_sum += int(obj)
         elif len(obj) == 1:
-            idx += 1
+            idx += 2
         else:
             orig_length = len(obj)
-            for thing in obj:
-                if not thing.isdigit():
-                    reason = thing
-                    obj = obj.replace(thing, "")
-            print("part:", obj, "because:", reason)
+            orig_obj = obj
+            if len(obj) <= 4:
+                for thing in obj:
+                    if not thing.isdigit():
+                        reason = thing
+                        obj = obj.replace(thing, "")
+                print("adding number: ", obj)
+                print(previous)
+                print(current)
+                print(next)
+                print("===========\n")
+            else:
+                middle_thing = [x.isdigit() for x in obj].index(False)
+                obj1 = obj[0:middle_thing]
+                obj2 = obj[middle_thing+1:]
+                obj = int(obj1) + int(obj2)
+                print("adding numbers: ", obj1, obj2)
+                print(previous)
+                print(current)
+                print(next)
+                print("===========\n")
+
             parts_sum += int(obj)
             idx += orig_length + 1
 
