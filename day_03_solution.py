@@ -34,7 +34,7 @@ def check_number(first_index, current_line, prev_line, next_line, number):
 
 parts_sum = 0
 for i in range(len(lines)):
-    lines[i] = lines[i].replace("\n", ".")
+    lines[i] = "." + lines[i].replace("\n", ".")
 
 for itr, line in enumerate(lines):
     if itr == 0:
