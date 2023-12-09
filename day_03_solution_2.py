@@ -3,9 +3,9 @@ def clean_input():
         output = []
         output.append(["." for x in range(142)])
         for line in datafile.readlines():
-            line = "." + line.strip() + "."
+            line = "....." + line.strip() + "....."
             output.append(line)
-        output.append(["." for x in range(142)])
+        output.append(["." for x in range(150)])
     return output
 
 
@@ -39,17 +39,19 @@ for ii in range(len(x)):
         if x[ii][jj] == "*":
             sum_list = []
             for digit in translate_digits(x[ii-1]):
-                if digit[-1]-1 <= jj <= digit[-1] + digit[1]+1:
+                if digit[-1]-1 <= jj <= digit[-1] + digit[1]:
                     sum_list.append(digit[0])
             for digit in translate_digits(x[ii]):
-                if digit[-1]-1 <= jj <= digit[-1] + digit[1]+1:
+                if digit[-1]-1 <= jj <= digit[-1] + digit[1]:
                     sum_list.append(digit[0])
             for digit in translate_digits(x[ii+1]):
-                if digit[-1]-1 <= jj <= digit[-1] + digit[1]+1:
+                if digit[-1]-1 <= jj <= digit[-1] + digit[1]:
                     sum_list.append(digit[0])
             if len(sum_list) == 2:
-                breakpoint()
                 total += (int(sum_list[0])*int(sum_list[1]))
+
 print("Sum:", total)
 
 # 69278118 is too low :(
+# 32688872 <- try 2 too low :(
+# 76504829 <- try 3
